@@ -9,7 +9,8 @@ public class Personagem {
     private boolean companheiroGabi;
     private boolean companheiroGigi;
 
-    // ERRO 1: Construtor Telescópico. O que significam todos esses trues e falses na chamada?
+    // TODO 0: Remover os atributos secundários, criando um construtor essencial, e um para os atributos secundários
+    // ERRO 0: Construtor Telescópico. O que significam todos esses trues e falses na chamada?
     public Personagem(String nome, String classe, int nivel, boolean temMontariaVoadora,
                       boolean companheiroGabi, boolean companheiroGigi) {
         this.nome = nome;
@@ -20,7 +21,8 @@ public class Personagem {
         this.companheiroGigi = companheiroGigi;
     }
 
-    // ERRO 2: O comportamento de ataque está amarrado a condições rígidas de estado.
+    // TODO 1: Criar classes com esses argumentos e métodos
+    // ERRO 1: O comportamento de ataque está amarrado a condições rígidas de estado.
     public void atacar() {
         if (statusAtual.equals("VIVO")) {
             System.out.println(nome + " ataca o inimigo com força total!");

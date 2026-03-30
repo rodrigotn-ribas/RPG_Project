@@ -1,6 +1,5 @@
 public class MotorDeCombate {
-
-    // ERRO 1: A matemática do dano viola o Princípio Aberto/Fechado.
+    // ERRO 0: A matemática do dano viola o Princípio Aberto/Fechado.
     public double calcularDanoBase(String classe, double poderDeAtaque) {
         if (classe.equals("Rogue")) {
             return poderDeAtaque * 1.5 + 20;
@@ -13,7 +12,7 @@ public class MotorDeCombate {
         }
     }
 
-    // ERRO 2: O Motor de Combate instancia classes de infraestrutura diretamente com 'new'.
+    // ERRO 1: O Motor de Combate instancia classes de infraestrutura diretamente com 'new'.
     public void processarMorte(Personagem personagem) {
         System.out.println("O personagem morreu em combate!");
 
