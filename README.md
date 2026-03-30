@@ -1,0 +1,3 @@
+A equipe de desenvolvimento de um novo MMORPG entregou a primeira versão do motor do jogo, que vai rodar nos servidores do Rio de Janeiro. O sistema já possui classes jogáveis, cálculos de dano, transições de estado e um sistema de notificação de eventos.
+No entanto, o código está uma verdadeira bagunça: construtores gigantes para montar os heróis, regras de combate engessadas, um nível altíssimo de acoplamento na hora de processar a morte dos personagens ou iniciar uma fase, além de conexões pesadas que podem derrubar o servidor.
+A sua missão é atuar como Engenheiro(a) de Software, identificar os problemas arquiteturais e aplicar os Padrões de Projeto (GoF e GRASP) corretos para limpar e profissionalizar esta arquitetura.
