@@ -1,16 +1,38 @@
 public class Main {
     public static void main(String[] args) {
-        // ... criação do personagem, etc ...
+       ConexaoServidorRio conexao = ConexaoServidorRio.getInstance();
+       conexao.sincronizarDados();
 
-        // ERRO: Para iniciar uma fase (Masmorra), o desenvolvedor do arquivo Main
-        // precisa conhecer e chamar manualmente diversos serviços complexos.
-        System.out.println("--- Iniciando Masmorra ---");
-        MotorDeAudio audio = new MotorDeAudio();
-        CarregadorDeCenario cenario = new CarregadorDeCenario();
-        GeradorDeMonstros monstros = new GeradorDeMonstros();
+       //Builder
+       Personagem heroi = new Personagem
+           .PersonagemBuilder("Juca", "Priest")
+           .comNivel(50)
+           .comMontaria()
+           .build();
 
-        audio.tocarMusica("boss_theme.mp3");
-        cenario.carregar("Caverna do Dragão");
-        monstros.invocar(10);
+       //State
+        heroi.atacar();
+        heroi.setEstadoAtual(new EstadoAtordoado());
+        heroi.atacar();
+
+       //Adapter
+       SistemaGuilda guilda = new GuildaAdapter(new SistemaGuildaAPI());
+       guilda.adicionarMembro(heroi.getNome());
+
+       //Facade
+        MasmorraFacade masmorra = new MasmorraFacade();
+        masmorra.inicializar("Masmorra do Dragão", 27, "Dragon Theme.mp3");
+
+        //Observer
+        MotorDeCombate combate = new MotorDeCombate();
+        combate.adicionarObservador(new TelaGameOver());
+        combate.adicionarObservador(new LogServidor());
+        combate.adicionarObservador(new SistemaConquistas());
+
+        //Strategy
+        double dano = combate.calcularDanoBase(new ShadowPriest(), 150);
+
+        System.out.println("Dano " + dano);
+        combate.processarMorte(heroi);
     }
 }

@@ -3,31 +3,73 @@ public class Personagem {
     private String classe;
     private int nivel;
     private String statusAtual = "VIVO"; // Pode ser "VIVO", "ATORDOADO" ou "MORTO"
-
-    // Atributos secundários
     private boolean temMontariaVoadora;
     private boolean companheiroGabi;
     private boolean companheiroGigi;
 
-    // ERRO 1: Construtor Telescópico. O que significam todos esses trues e falses na chamada?
-    public Personagem(String nome, String classe, int nivel, boolean temMontariaVoadora,
-                      boolean companheiroGabi, boolean companheiroGigi) {
-        this.nome = nome;
-        this.classe = classe;
-        this.nivel = nivel;
-        this.temMontariaVoadora = temMontariaVoadora;
-        this.companheiroGabi = companheiroGabi;
-        this.companheiroGigi = companheiroGigi;
+    private EstadoPersonagem estadoAtual = new EstadoVivo();
+
+
+    public Personagem(PersonagemBuilder builder){
+        this.nome = builder.nome;
+        this.classe = builder.classe;
+        this.nivel = builder.nivel;
+        this.temMontariaVoadora = builder.temMontariaVoadora;
+        this.companheiroGabi = builder.companheiroGabi;
+        this.companheiroGigi = builder.companheiroGigi;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public void setEstadoAtual(EstadoPersonagem estadoAtual){
+        this.estadoAtual = estadoAtual;
     }
 
     // ERRO 2: O comportamento de ataque está amarrado a condições rígidas de estado.
     public void atacar() {
-        if (statusAtual.equals("VIVO")) {
-            System.out.println(nome + " ataca o inimigo com força total!");
-        } else if (statusAtual.equals("ATORDOADO")) {
-            System.out.println(nome + " está tonto e não consegue atacar!");
-        } else if (statusAtual.equals("MORTO")) {
-            System.out.println("Personagens mortos não atacam.");
+       estadoAtual.atacar(this);
+    }
+
+    public static class PersonagemBuilder{
+        private String nome;
+        private String classe;
+        private int nivel = 1;
+        private boolean temMontariaVoadora = false;
+        private boolean companheiroGabi = false;
+        private boolean companheiroGigi = false;
+
+        public PersonagemBuilder(String nome, String classe){
+            this.nome = nome;
+            this.classe = classe;
+        }
+
+        public PersonagemBuilder comNivel(int nivel){
+            this.nivel = nivel;
+            return this;
+        }
+
+        public PersonagemBuilder comMontaria(){
+            this.temMontariaVoadora = true;
+            return this;
+        }
+
+        public PersonagemBuilder comCopanheiroGabi(boolean companheiroGabi){
+            this.companheiroGabi = companheiroGabi;
+            return this;
+        }
+
+
+        public PersonagemBuilder comCopanheiroGigi(boolean companheiroGigi){
+            this.companheiroGigi = companheiroGigi;
+            return this;
+        }
+
+        public Personagem build(){
+            return new Personagem(this);
         }
     }
+
 }
+
